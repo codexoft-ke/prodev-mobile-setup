@@ -1,100 +1,77 @@
-# Quick Reference: Expo Go Mobile Development
+# Expo project + Expo Go — Quick Setup
 
-## Essential Commands
+This README documents a minimal, practical workflow to create an Expo app locally and run it on a physical device using Expo Go.
 
-```bash
-# Create new Expo project
-npx create-expo-app ProjectName
+## Prerequisites
+- Node.js (LTS recommended). Use nvm to manage versions if needed.
+- Git
+- A phone with Expo Go (iOS App Store / Android Play Store)
+- (Optional) Android Studio for Android emulator, Xcode for iOS simulator (macOS only)
 
-# Create with specific template
-npx create-expo-app --template blank MyApp
-npx create-expo-app --template tabs MyApp
-npx create-expo-app --template typescript MyApp
+## Create a new Expo project
+Use the official starter tool:
 
-# Start development server
+```
+npx create-expo-app my-app
+cd my-app
+```
+
+Choose a template (blank, tabs, etc.) when prompted.
+
+## Run the development server
+Start Metro/dev server:
+
+```
 npx expo start
-
-# Start with specific options
-npx expo start --clear          # Clear cache
-npx expo start --localhost      # Local network only
-npx expo start --tunnel         # Use tunnel for external access
-npx expo start --web           # Open in web browser
 ```
 
-## Expo Go Installation Links
+This opens the Expo Dev Tools in your browser and prints a QR code in the terminal.
 
-### Android
-- **Google Play Store**: [Install Expo Go for Android](https://play.google.com/store/apps/details?id=host.exp.exponent)
+Common keys in the Dev Tools terminal:
+- a — open Android emulator
+- i — open iOS simulator (macOS + Xcode)
+- r — reload
+- d — toggle developer menu
 
-### iOS  
-- **Apple App Store**: [Install Expo Go for iOS](https://apps.apple.com/app/expo-go/id982107779)
+## Run on a physical device with Expo Go
+1. Install Expo Go from the App Store / Play Store.
+2. Ensure your phone and development machine are on the same Wi‑Fi network (or use tunnel).
+3. From the Dev Tools or terminal, scan the QR code:
+    - iOS: open Camera app and tap the QR → open in Expo Go
+    - Android: open Expo Go → Scan QR Code, or use device camera if it supports deep links
 
-## Device Testing Workflow
-
-1. **Start Development Server**
-   ```bash
-   cd YourProject
-   npx expo start
-   ```
-
-2. **Connect Device**
-   - Open Expo Go app
-   - Scan QR code from terminal/browser
-   - Or manually enter the development URL
-
-3. **Development Mode Features**
-   - Live reload on file changes
-   - Error overlays for debugging
-   - Remote debugging capabilities
-   - Performance monitoring
-
-## Common File Structure
+If network issues occur, select the connection type "Tunnel" in Dev Tools or start with:
 
 ```
-YourExpoProject/
-├── App.js                 # Main app component
-├── app.json              # App configuration
-├── package.json          # Dependencies
-├── babel.config.js       # Babel config
-├── assets/               # Static assets
-│   ├── icon.png         # App icon
-│   ├── splash.png       # Splash screen
-│   └── adaptive-icon.png # Android adaptive icon
-├── components/           # Reusable components
-├── screens/             # Screen components
-├── navigation/          # Navigation setup
-└── utils/              # Helper functions
+npx expo start --tunnel
 ```
 
-## Useful Expo APIs for Mobile Development
+Notes:
+- Expo Go runs JavaScript and the Expo SDK; it works out of the box for managed projects.
+- If you add custom native modules, use a custom dev client (expo-dev-client) and EAS Build.
 
-- **Camera**: `expo-camera`
-- **Location**: `expo-location`
-- **Push Notifications**: `expo-notifications`
-- **File System**: `expo-file-system`
-- **SQLite**: `expo-sqlite`
-- **Sensors**: `expo-sensors`
-- **Audio/Video**: `expo-av`
+## Android USB debugging (alternative)
+For USB testing with Android device:
+- Enable USB debugging on device.
+- Connect via USB and run:
+  - `npx expo start`, then choose "Tunnel" or run `adb reverse tcp:8081 tcp:8081` (if using LAN and adb is installed).
 
-## Development Tips
+## When you need a standalone app or native modules
+- Use EAS Build to produce signed APK/AAB or IPA:
+  - Configure `eas.json`
+  - Build with `eas build --platform android` or `eas build --platform ios`
+- For custom native code during development, use `expo-dev-client` and build a dev client with EAS.
 
-- Use `console.log()` for debugging (visible in terminal)
-- Shake device to open developer menu
-- Use TypeScript for better development experience
-- Test on multiple device sizes
-- Consider device orientation changes
-- Test offline functionality when applicable
+## Useful commands
+- Start: `npx expo start`
+- Create: `npx create-expo-app my-app`
+- Run Android emulator: press `a` in dev tools or `npx expo start` then `a`
+- Run iOS simulator: press `i` (macOS only)
+- Start with tunnel: `npx expo start --tunnel`
 
-## Next Steps for Production
+## Troubleshooting
+- QR won’t connect: check firewall, same network, try Tunnel.
+- "Expo Go can't load the app": make sure Metro is running and the correct connection mode is selected.
+- Needing native modules: switch to dev client + EAS Build.
 
-1. **Build for Production**
-   ```bash
-   npx expo build:android
-   npx expo build:ios
-   ```
-
-2. **App Store Deployment**
-   - Configure app.json for store requirements
-   - Generate appropriate icons and splash screens
-   - Test thoroughly on target devices
-   - Follow platform-specific submission guidelines
+That's all you need to get a new Expo project running locally and on a phone with Expo Go. Adjust steps per OS and network environment as needed.
