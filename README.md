@@ -66,15 +66,54 @@ Once Expo Go is installed, your typical development workflow will be:
 
 ## Challenges and Solutions
 
-### Common Setup Challenges
-- **Network Issues**: Ensure your development machine and mobile device are on the same WiFi network
-- **Firewall Restrictions**: Configure firewall to allow Expo development server
-- **Device Compatibility**: Verify your device supports the latest Expo Go version
+### Common Setup Challenges Encountered
+
+1. **Package Installation Warnings**
+   - ⚠️ **Issue**: Deprecated package warnings during Expo CLI installation
+   - ✅ **Solution**: These are non-critical warnings from npm dependencies. The installation completes successfully despite the warnings.
+   - **Example Output**: 
+     ```
+     npm WARN deprecated inflight@1.0.6: This module is not supported
+     npm WARN deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+     ```
+
+2. **Network Issues**
+   - **Issue**: Device can't connect to development server
+   - **Solution**: Ensure your development machine and mobile device are on the same WiFi network
+   - **Alternative**: Use tunnel mode with `npx expo start --tunnel`
+
+3. **Firewall Restrictions**
+   - **Issue**: Development server blocked by firewall
+   - **Solution**: Configure firewall to allow Expo development server (ports 19000-19006)
+
+4. **Device Compatibility**
+   - **Issue**: Older devices may not support latest Expo Go version
+   - **Solution**: Check device requirements on Expo documentation
 
 ### Troubleshooting Tips
-- Clear Expo Go cache if experiencing loading issues
-- Restart the development server if changes aren't reflecting
-- Check console logs for detailed error messages
+
+- **Clear Cache**: Clear Expo Go cache if experiencing loading issues
+- **Restart Server**: Restart development server if changes aren't reflecting
+- **Check Logs**: Monitor console logs for detailed error messages
+- **Network Debug**: Use `npx expo start --localhost` for local development
+- **QR Code Issues**: Manually enter the development URL in Expo Go if QR scanning fails
+
+### Development Environment Status
+
+**System Specifications:**
+- Platform: Linux Ubuntu 24.04.2 LTS
+- Architecture: x64
+- Development Container: VS Code Dev Container
+- Node.js: v22.17.0 (LTS)
+- npm: v9.8.1
+- Expo CLI: v0.24.20
+
+**Setup Completion:**
+- ✅ Node.js LTS verified
+- ✅ VS Code environment ready
+- ✅ Expo CLI installed and functional
+- ✅ Sample project created successfully
+- 📱 **Next**: Install Expo Go on your mobile device
 
 ## Demo Project Setup
 
